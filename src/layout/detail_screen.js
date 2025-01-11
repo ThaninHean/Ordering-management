@@ -22,7 +22,7 @@ const ItemModal = ({ item, onClose, onBuyNow }) => {
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-2 text-black text-2xl  hover:text-white-500 transition bg-gray rounded-full w-9 h-9 flex items-center justify-center"
+            className="absolute top-4 right-2 text-white text-2xl  hover:text-white-500 transition bg-slate-400 rounded-full w-9 h-9 flex items-center justify-center"
           >
             X
           </button>

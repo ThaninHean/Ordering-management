@@ -4,7 +4,7 @@ import ItemModal from "./detail_screen"; // Import the modal component
 import ShoppingCart from "./card"; // Import the ShoppingCart component
 
 function Overview_page() {
-  const [menu, setMenu] = useState(menuItems || []);
+  const [menu] = useState(menuItems || []);
   const [selectedItem, setSelectedItem] = useState(null); // Track selected item for modal
   const [cart, setCart] = useState([]); // Cart state
 
@@ -47,11 +47,11 @@ function Overview_page() {
   ];
 
   const openModal = (item) => {
-    setSelectedItem(item);
+    setSelectedItem(item); // Set the selected item when an item is clicked
   };
 
   const closeModal = () => {
-    setSelectedItem(null);
+    setSelectedItem(null); // Close the modal by setting selectedItem to null
   };
 
   return (
