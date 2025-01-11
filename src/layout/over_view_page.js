@@ -124,8 +124,8 @@ function Overview_page() {
             )}
           </div>
           {/* Shopping Cart */}
-          <div className="w-1/4 pl-4">
-            <div className="sticky top-6">
+          <div className="w-1/3 pl-2">
+            <div className="sticky top-4 h-80">
               <ShoppingCart cart={cart} updateQuantity={updateCartQuantity} />
             </div>
           </div>

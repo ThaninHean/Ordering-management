@@ -22,7 +22,7 @@ const ItemModal = ({ item, onClose, onBuyNow }) => {
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-2 right-2 text-white text-2xl  hover:text-white-500 transition bg-gray-200 rounded-full w-10 h-10 flex items-center justify-center"
+            className="absolute top-4 right-2 text-black text-2xl  hover:text-white-500 transition bg-gray rounded-full w-9 h-9 flex items-center justify-center"
           >
             X
           </button>
@@ -51,7 +51,7 @@ const ItemModal = ({ item, onClose, onBuyNow }) => {
               onBuyNow(item);
               onClose(); // Close modal after purchase
             }}
-            className="w-full bg-blue-500 text-white py-3 rounded-lg font-semibold text-lg hover:bg-blue-600 transition"
+            className="w-full bg-blue-700 text-white py-3 rounded-lg font-semibold text-lg hover:bg-blue-600 transition"
           >
             Buy Now
           </button>

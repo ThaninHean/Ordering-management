@@ -7,12 +7,12 @@ function ShoppingCart({ cart, updateQuantity }) {
   );
 
   return (
-    <div className="bg-gray-150 p-2 rounded-md shadow-lg">
-      <h2 className="text-lg font-bold mb-4">Shopping Cart</h2>
+    <div className="bg-gray-300 p-2 rounded-md shadow-lg max-h-100">
+      <h2 className="text-lg font-bold mb-2">Shopping Cart</h2>
       {cart.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
-        <div className="space-y-3 max-h-80 overflow-y-auto">
+        <div className="space-y-2 max-h-64 overflow-y-auto">
           {cart.map((item) => (
             <li
               key={item.id}
@@ -48,7 +48,6 @@ function ShoppingCart({ cart, updateQuantity }) {
       )}
       {cart.length > 0 && (
         <div className="mt-4">
-
           <p className="font-bold">Total: ${totalPrice.toFixed(2)}</p>
           <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
             Checkout
