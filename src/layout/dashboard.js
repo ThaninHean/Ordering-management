@@ -1,8 +1,13 @@
 import React, { useState } from "react";
-import { Layout, Menu } from "antd";
-import { Routes, Route, Link } from "react-router-dom";
+import { Layout, Menu as AntdMenu } from "antd";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import OverviewPage from "./over_view_page";
 import OrderHistoryPage from "./order_history";
+
+import MenuItem from "@mui/material/MenuItem";
+import Button from "@mui/material/Button";
+import MuiMenu from "@mui/material/Menu";
+import logo from "../assets/Image/rest.png"
 
 import {
   DashboardOutlined,
@@ -52,7 +57,21 @@ const items = [
 ];
 
 const Dashboard = () => {
+  const navigator=useNavigate() 
   const [collapsed, setCollapsed] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+    if(event.onClick){
+      event.onClick(MenuItem)
+      navigator('/4');
+    }
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <Layout className="min-h-screen">
@@ -67,7 +86,7 @@ const Dashboard = () => {
         <div className="h-16 flex items-center justify-center text-white text-xl font-bold">
           Neary Khmer
         </div>
-        <Menu
+        <AntdMenu
           theme="dark"
           defaultSelectedKeys={["1"]}
           mode="inline"
@@ -77,16 +96,35 @@ const Dashboard = () => {
       </Sider>
 
       {/* Main Layout */}
-      <Layout style={{ marginLeft: 200, minHeight: "100vh" }}>
-        {" "}
-        {/* Adjusting for the sidebar width */}
+      <Layout style={{ marginLeft: collapsed ? 80 : 200, minHeight: "100vh" }}>
         {/* Header */}
         <Header
           className="bg-white shadow-md p-0 flex items-center"
           style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000 }}
         >
           <h1 className="ml-4 text-lg font-semibold">Dashboard Header</h1>
+          <div style={{ marginLeft: "auto", marginRight: "16px" }}>
+            <Button
+              aria-controls="simple-menu"
+              aria-haspopup="true"
+              onClick={handleMenuOpen}
+            >
+              <img src={logo} className="w-12 h-12 rounded-full bg-white"/>
+            </Button>
+            <MuiMenu
+              keepMounted
+              anchorEl={anchorEl}
+              onClose={handleMenuClose}
+              open={Boolean(anchorEl)}
+            >
+              <MenuItem onClick={handleMenuClose}>My Account</MenuItem>
+              <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
+              <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+              <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+            </MuiMenu>
+          </div>
         </Header>
+
         {/* Content */}
         <Content
           className="p-4 mt-16"
@@ -98,6 +136,7 @@ const Dashboard = () => {
             {/* Add more routes here for other pages */}
           </Routes>
         </Content>
+
         {/* Footer */}
         <Footer className="text-center bg-gray-100">
           Neary Restaurant ©{new Date().getFullYear()}

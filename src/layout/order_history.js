@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Table, Button, Space } from "antd";
+import { Card, Table, Button, Space, Tag } from "antd";
 import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
 
 const OrderHistoryPage = () => {
@@ -10,6 +10,7 @@ const OrderHistoryPage = () => {
       orderId: "ORD12345",
       customer: "John Doe",
       date: "2025-01-06",
+      payment: "Pending",
       amount: "$150.00",
     },
     {
@@ -17,7 +18,16 @@ const OrderHistoryPage = () => {
       orderId: "ORD12346",
       customer: "Jane Smith",
       date: "2025-01-05",
+      payment: "Completed",
       amount: "$200.00",
+    },
+    {
+      key: "3",
+      orderId: "ORD12347",
+      customer: "Alice Johnson",
+      date: "2025-01-04",
+      payment: "Failed",
+      amount: "$120.00",
     },
     // Add more rows here as needed
   ];
@@ -38,6 +48,19 @@ const OrderHistoryPage = () => {
       title: "Date",
       dataIndex: "date",
       key: "date",
+    },
+    {
+      title: "Payment",
+      dataIndex: "payment",
+      key: "payment",
+      render: (text) => {
+        let color = "";
+        if (text === "Pending") color = "orange";
+        else if (text === "Completed") color = "green";
+        else if (text === "Failed") color = "red";
+
+        return <Tag color={color}>{text}</Tag>;
+      },
     },
     {
       title: "Amount",
