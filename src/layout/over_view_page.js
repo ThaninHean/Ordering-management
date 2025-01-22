@@ -57,12 +57,12 @@ function Overview_page() {
   return (
     <div className="container mx-auto p-6">
       <header className="mb-8">
-        <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4">
           {/* Categories */}
           {categories.map((category) => (
             <button
               key={category.name}
-              className="px-4 py-3 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600 transition-all ease-in-out duration-300 flex items-center justify-center"
+              className="px-4 py-3 bg-blue-500  text-white font-medium rounded-md hover:bg-blue-600 transition-all ease-in-out duration-300 flex items-center justify-center"
             >
               <img
                 src={category.img}

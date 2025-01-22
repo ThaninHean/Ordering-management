@@ -4,10 +4,8 @@ import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import OverviewPage from "./over_view_page";
 import OrderHistoryPage from "./order_history";
 
-import MenuItem from "@mui/material/MenuItem";
-import Button from "@mui/material/Button";
-import MuiMenu from "@mui/material/Menu";
-import logo from "../assets/Image/rest.png"
+import { Button, Menu as AntdDropdownMenu, Dropdown } from "antd";
+import logo from "../assets/Image/rest.png";
 
 import {
   DashboardOutlined,
@@ -57,22 +55,17 @@ const items = [
 ];
 
 const Dashboard = () => {
-  const navigator=useNavigate() 
   const [collapsed, setCollapsed] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-    if(event.onClick){
-      event.onClick(MenuItem)
-      navigator('/4');
-    }
+  const [menuVisible, setMenuVisible] = useState(false);
+
+  const handleMenuOpen = () => {
+    setMenuVisible(true);
   };
 
   const handleMenuClose = () => {
-    setAnchorEl(null);
+    setMenuVisible(false);
   };
-
   return (
     <Layout className="min-h-screen">
       {/* Sidebar */}
@@ -111,23 +104,21 @@ const Dashboard = () => {
             >
               <img src={logo} className="w-12 h-12 rounded-full bg-white"/>
             </Button>
-            <MuiMenu
-              keepMounted
-              anchorEl={anchorEl}
-              onClose={handleMenuClose}
-              open={Boolean(anchorEl)}
-            >
-              <MenuItem onClick={handleMenuClose}>My Account</MenuItem>
-              <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
-              <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-              <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
-            </MuiMenu>
+            <Dropdown
+              overlay={
+                <AntdDropdownMenu onClick={handleMenuClose}>
+                  <AntdDropdownMenu.Item key="1">My Account</AntdDropdownMenu.Item>
+                  <AntdDropdownMenu.Item key="2">Settings</AntdDropdownMenu.Item>
+                  <AntdDropdownMenu.Item key="3">Profile</AntdDropdownMenu.Item>
+                  <AntdDropdownMenu.Item key="4">Logout</AntdDropdownMenu.Item>
+                </AntdDropdownMenu>
+              }
+              open={menuVisible}
+              onOpenChange={setMenuVisible}
+            />
           </div>
         </Header>
-
-        {/* Content */}
         <Content
-          className="p-4 mt-16"
           style={{ overflowY: "auto", maxHeight: "calc(100vh - 64px)" }}
         >
           <Routes>
