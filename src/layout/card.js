@@ -14,20 +14,23 @@ function ShoppingCart({ cart, updateQuantity }) {
   }, [cart]);
 
   return (
-    <div className="bg-gray-200 p-4 rounded-md shadow-lg max-h-screen sm:max-h-[75vh] md:max-h-[80vh] lg:max-h-[90vh] overflow-auto">
-      <h2 className="text-lg font-bold mb-4 text-center sm:text-left">
-        Shopping Cart
-      </h2>
+    <div className=" ml-3 bg-gray-200 p-3 rounded-md shadow-md max-h-screen sm:max-h-[75vh] md:max-h-[80vh] lg:max-h-[90vh] overflow-auto">
+      <div className="flex justify-between items-center">
+      <h2 className="text-lg font-bold mb-4 text-center sm:text-left">Shopping Cart</h2>
+      <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">Create Order</button>
+
+      </div>
+      <hr className="my-1" />
       {cart.length === 0 ? (
-        <p className="text-center">Your cart is empty.</p>
+        <p className="text-center mt-10">Your cart is empty.</p>
       ) : (
         <div className="space-y-4">
           {/* Cart Items */}
-          <ul className="max-h-64 sm:max-h-80 overflow-y-auto space-y-3">
+          <ul className="max-h-64 sm:max-h-80 overflow-y-auto space-y-2">
             {cart.map((item) => (
               <li
                 key={item.id}
-                className="flex flex-col sm:flex-row items-center justify-between bg-white p-4 rounded shadow space-y-4 sm:space-y-0"
+                className="flex flex-col sm:flex-row items-center justify-between bg-white p-2 rounded shadow space-y-4 sm:space-y-0"
               >
                 <img
                   src={item.image}
@@ -43,14 +46,14 @@ function ShoppingCart({ cart, updateQuantity }) {
                 <div className="flex items-center space-x-4">
                   <button
                     onClick={() => updateQuantity(item.id, -1)}
-                    className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
+                    className="px-4 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
                   >
                     -
                   </button>
                   <span className="px-4">{item.quantity}</span>
                   <button
                     onClick={() => updateQuantity(item.id, 1)}
-                    className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 transition"
+                    className="px-4 py-1 bg-green-500 text-white rounded hover:bg-green-600 transition"
                   >
                     +
                   </button>
