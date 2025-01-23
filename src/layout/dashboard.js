@@ -3,6 +3,7 @@ import { Layout, Menu as AntdMenu } from "antd";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import OverviewPage from "./over_view_page";
 import OrderHistoryPage from "./order_history";
+import MenuList from "./menu";
 
 import { Button, Menu as AntdDropdownMenu, Dropdown } from "antd";
 import logo from "../assets/Image/rest.png";
@@ -40,10 +41,10 @@ const items = [
     null,
     "/dashboard/order-history"
   ),
-  getItem("Menu", "2", <MenuFoldOutlined />, [
-    getItem("Menu List", "2.1"),
-    getItem("Menu Category", "2.2"),
-  ]),
+  getItem("Menu", "2", <MenuFoldOutlined />,
+    null,
+    "/dashboard/menu",
+  ),
   getItem("Orders", "3", <OrderedListOutlined />),
   getItem("Customer", "4", <UserOutlined />, [getItem("Customer List", "4.1")]),
   getItem("Team", "5", <TeamOutlined />, [

@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-
 function ShoppingCart({ cart, updateQuantity }) {
   const subtotal = cart.reduce(
     (total, item) => total + item.price * item.quantity,

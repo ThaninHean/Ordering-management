@@ -1,10 +1,10 @@
-import React from "react";
-import { Card, Table, Button, Space, Tag } from "antd";
+import React, { useState } from "react";
+import { Card, Table, Button, Space, Tag, message } from "antd";
 import { SearchOutlined, PlusOutlined } from "@ant-design/icons";
 
 const OrderHistoryPage = () => {
-  // Sample data for the table (you can replace this with dynamic data)
-  const data = [
+  // State to manage the order data
+  const [orders, setOrders] = useState([
     {
       key: "1",
       orderId: "ORD12345",
@@ -29,8 +29,43 @@ const OrderHistoryPage = () => {
       payment: "Failed",
       amount: "$120.00",
     },
-    // Add more rows here as needed
-  ];
+  ]);
+
+  // Function to cycle through payment statuses
+  const togglePaymentStatus = (key) => {
+    const updatedOrders = orders.map((order) => {
+      if (order.key === key) {
+        const nextStatus =
+          order.payment === "Pending"
+            ? "Completed"
+            : order.payment === "Completed"
+            ? "Failed"
+            : "Pending";
+        return { ...order, payment: nextStatus };
+      }
+      return order;
+    });
+    setOrders(updatedOrders);
+  };
+
+  // Function to delete an order
+  const deleteOrder = (key) => {
+    const updatedOrders = orders.filter((order) => order.key !== key);
+    setOrders(updatedOrders);
+    message.success("Order deleted successfully!");
+  };
+
+  // Function to handle edit (example logic, you can expand it as needed)
+  const editOrder = (key) => {
+    message.info(`Editing order with key: ${key}`);
+    // Implement edit logic here, e.g., showing a modal with a form
+  };
+
+  // Function to handle view (example logic)
+  const viewOrder = (key) => {
+    message.info(`Viewing order with key: ${key}`);
+    // Implement view logic here, e.g., showing a modal or redirecting to a details page
+  };
 
   // Define columns for the table
   const columns = [
@@ -50,16 +85,28 @@ const OrderHistoryPage = () => {
       key: "date",
     },
     {
-      title: "Payment",
-      dataIndex: "payment",
-      key: "payment",
-      render: (text) => {
+      title: "status",
+      dataIndex: "status",
+      key: "status",
+      render: (_, record) => {
         let color = "";
-        if (text === "Pending") color = "orange";
-        else if (text === "Completed") color = "green";
-        else if (text === "Failed") color = "red";
+        if (record.payment === "Pending") color = "orange";
+        else if (record.payment === "Completed") color = "green";
+        else if (record.payment === "Canceled") color = "red";
 
-        return <Tag color={color}>{text}</Tag>;
+        return (
+          <Button
+            style={{
+              border: ` ${color}`,
+              backgroundColor: color === "orange" ? "#fff7e6" : color === "green" ? "#f6ffed" : "#fff1f0",
+              color: color,
+            }}
+            size="small"
+            onClick={() => togglePaymentStatus(record.key)}
+          >
+            {record.payment}
+          </Button>
+        );
       },
     },
     {
@@ -72,10 +119,18 @@ const OrderHistoryPage = () => {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <Button type="link" size="small">
+          <Button type="link" size="small" onClick={() => viewOrder(record.key)}>
             View
           </Button>
-          <Button type="link" size="small">
+          <Button type="link" size="small" onClick={() => editOrder(record.key)}>
+            Edit
+          </Button>
+          <Button
+            type="link"
+            size="small"
+            danger
+            onClick={() => deleteOrder(record.key)}
+          >
             Delete
           </Button>
         </Space>
@@ -85,7 +140,6 @@ const OrderHistoryPage = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      {/* Card component for wrapping the page content */}
       <Card
         title="Order History"
         extra={
@@ -106,10 +160,9 @@ const OrderHistoryPage = () => {
           <Button type="default">Filters</Button>
         </div>
 
-        {/* Table displaying order history */}
         <Table
           columns={columns}
-          dataSource={data}
+          dataSource={orders}
           pagination={{ pageSize: 5 }}
           bordered
         />
